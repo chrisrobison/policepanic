@@ -1,0 +1,96 @@
+
+- Hat [optional] 
+    - baseball cap
+    - cowboy hat
+    - hoodie
+    - ski mask
+    - beanie
+
+- Hair
+    * black
+    * grey / white
+    * bald
+    - brown
+    - blonde
+    - red
+
+- Head
+    - male
+        - white
+        - asian
+        - hispanic
+        - black
+    - female
+        - white
+        - asian
+        - hispanic
+        - black
+
+- Eyes
+    - nice
+    - angry
+    - confused
+    - dopey
+    - determined
+    - closed
+
+- Nose
+    - standard (works with all)
+    - ethnic
+        - wide
+        - bulbous
+        - flat
+    - white
+        - roman
+        - tiny
+        - turned-up
+        - huge
+- Mouth
+    - male
+        - smiling
+        - angry
+        - beard
+        - normal 
+    - female 
+        - smiling
+        - angry
+        - normal
+
+- Body 
+    - male
+    - female
+
+- Outfit
+    - male
+        - street
+        - thug
+        - suit
+        - cowboy
+
+    - female
+        - street
+        - office
+        - dress
+        - gown
+        - cowgirl
+
+- Arms (holding...)
+    - guns
+    - money bags
+    - badge
+    - non-gun
+
+- Legs
+    - male
+        - black
+        - hispanic
+        - asian
+        - white
+
+    - female
+        - black
+        - hispanic
+        - asian
+        - white
+
+

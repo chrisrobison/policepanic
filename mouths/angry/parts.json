@@ -1,0 +1,37 @@
+{
+    "frazzled": {
+        "src": "frazzled.png",
+        "width": 123,
+        "height": 41
+    },
+    "frown": {
+        "src": "frown.png",
+        "width": 173,
+        "height": 43
+    },
+    "grrrr": {
+        "src": "grrrr.png",
+        "width": 217,
+        "height":96 
+    },
+    "mad": {
+        "src": "mad.png",
+        "width": 205,
+        "height":95 
+    },
+    "pissed": {
+        "src": "pissed.png",
+        "width": 115,
+        "height":102 
+    },
+    "scowl": {
+        "src": "scowl.png",
+        "width": 261,
+        "height":96 
+    },
+    "worried": {
+        "src": "worried.png",
+        "width": 137,
+        "height": 43
+    }
+}

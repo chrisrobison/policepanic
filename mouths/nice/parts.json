@@ -1,0 +1,37 @@
+{
+    "big": {
+        "src": "big.png",
+        "width": 131,
+        "height":73 
+    },
+    "huge": {
+        "src": "huge.png",
+        "width": 93,
+        "height": 64 
+    },
+    "open_left": {
+        "src": "open_left.png",
+        "width": 86,
+        "height": 102 
+    },
+    "open_right": {
+        "src": "open_right.png",
+        "width": 121,
+        "height": 100 
+    },
+    "smile": {
+        "src": "smile.png",
+        "width": 138,
+        "height": 75 
+    },
+    "thin": {
+        "src": "thin.png",
+        "width": 160,
+        "height": 88 
+    },
+    "thin_big": {
+        "src": "thin_big.png",
+        "width": 87,
+        "height": 88 
+    }
+}

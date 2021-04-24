@@ -21,10 +21,13 @@
     filter: brightness(0.1);
 }
 .asian .hair {
-    filter: brightness(0.1);
+    filter: brightness(0.3);
 }
 .hispanic .hair {
-    filter: brightness(0.3);
+    filter: brightness(0.5);
+}
+.white .hair {
+    filter: brightness(1.2);
 }
 .hispanic .head {
     filter: brightness(0.75) saturate(200%) contrast(100%); 
@@ -177,7 +180,7 @@
     transition: all 1000ms ease-in-out;
 }
 
-.blueeyes {
+.eyecolor.blueeyes .eyes {
     filter: hue-rotate(180deg) saturate(400%) brightness(1.2);
 }
 
@@ -257,28 +260,48 @@
 }
 .hair {
     position:absolute;
-    top:-4vh;
-    left:1.6vw;
-    width: 250px;
-    height:211px;
+    top:-3em;
+    left:0.7em;
+    width: 17.5em;
+    height:15em;
+    filter: brightness(0);
+
 }
 .hair > img {
     width: 100%;
     height:100%;
 }
+
+.hair.male_style2 {
+    top:-5.3em;
+    left:-4em;
+    width:27em;
+    height:20em;
+}
+.hair.male_style6 {
+    top: -2.2em;
+}
+
+.hair.male_style8 {
+    top: -5.2em;
+    width: 17.5em;
+    left: 0.6em;
+    height: 16em;
+}
+
 .flip {
     transform: scaleY(-1);
 }
 .body {
-    background-image: url(suit_gun.png);
-    width: 31em;
+    background-image: url("jeans.png");
+    width: 16.5em;
     height: 36em;
     background-size: 100% 100%;
     display: inline-block;
     margin: 0 auto;
-    top: 11em;
+    top: 11.5em;
     position: absolute;
-    left: -1.8em;
+    left: 6em;
 }
 .headspace {
     transform: scale(.5);
@@ -286,13 +309,21 @@
     top:-5em;
 }
 .person {
-
     position:relative;
     width: 500px;
     height:90vh;
     border:1px solid #000;
-overflow:hidden;
-
+    overflow:hidden;
+}
+.holding {
+    position:absolute;
+    background-image:url("guns.png");
+    background-size: 100% auto;
+    height:1000px;
+    width:300px;
+    background-repeat:no-repeat;
+    top: 100px;
+    left: -20px;
 }
     </style>
 </head>
@@ -322,6 +353,13 @@ overflow:hidden;
             <option>staring</option>
         </optgroup>
     </select>
+    <label for='eyecolor'>Eye Color</label>
+    <select id='eyecolor' onchange="changeEyes('eyecolor', this.options[this.selectedIndex])">
+        <option value='browneyes' selected>brown</option>
+        <option value='blueeyes'>blue</option>
+        <option value='greeneyes'>green</option>
+        <option value='demoneyes'>demon</option>
+    </select>
     <label for='mouth'>Mouth</label>
     <select id='mouth' onchange="change('mouth', this.options[this.selectedIndex])">
         <optgroup label="Aggressive">
@@ -347,7 +385,7 @@ overflow:hidden;
     <select id='hair' onchange="app.changeHair('hair', this.options[this.selectedIndex])">
         <optgroup label="Male">
             <option value="male/style1">style 1</option>
-            <option value="male/style2">style 2</option>
+            <option value="male/style2">afro</option>
             <option value="male/style3">style 3</option>
             <option value="male/style4">style 4</option>
             <option value="male/style5">style 5</option>
@@ -380,41 +418,37 @@ overflow:hidden;
             <option value="female/style15">style 15</option>
         </optgroup>
         <optgroup label="Unisex">
-            <option value="male/style1">style 1</option>
-            <option value="male/style2">style 2</option>
-            <option value="male/style3">style 3</option>
-            <option value="male/style4">style 4</option>
-            <option value="male/style5">style 5</option>
-            <option value="male/style6">style 6</option>
-            <option value="male/style7">style 7</option>
-            <option value="male/style8">style 8</option>
-            <option value="male/style9">style 9</option>
-            <option value="male/style10">style 10</option>
-            <option value="male/style11">style 11</option>
-            <option value="male/style12">style 12</option>
-            <option value="male/style13">style 13</option>
-            <option value="male/style14">style 14</option>
-            <option value="male/style15">style 15</option>
+            <option value="unisex/style1">style 1</option>
+            <option value="unisex/style2">style 2</option>
+            <option value="unisex/style3">style 3</option>
+            <option value="unisex/style4">style 4</option>
+            <option value="unisex/style5">style 5</option>
+            <option value="unisex/style6">style 6</option>
         </optgroup>
     </select>
     <br>
 <fieldset>
-    <legend>Eye Options</legend>
-    <label for='blueeyes'>Blue Eyes</label>
-    <input type='checkbox' id='blueeyes' checked='true' onchange="$('.eyes').classList.toggle('blueeyes')">
+    <legend>Options</legend>
+    <label for='flipmouth'>Flip Mouth</label>
+    <input type='checkbox' id='flipmouth' onchange="$('.mouth').classList.toggle('flip')">
 
-    <label for='flipeyes'>Invert Eyes</label>
+    <label for='flipeyes'>Flip Eyes</label>
     <input type='checkbox' id='flipeyes' onchange="$('.eyes').classList.toggle('flip')">
 </fieldset>     
 <div class='person'>
     <div class='headspace white'>
         <div class='head'></div>
         <div class='hair'><img id='hairimg' src='hair/male/style1.png'></div>
-        <div class='eyes blueeyes concentrated'></div>
+        <div class='eyecolor'>
+            <div class='eyes concentrated'>
+            </div>
+        </div>
         <div class='nose'></div>
         <div class='mouth'></div>
     </div>
-    <div class='body'></div>
+    <div class='body'>
+        <div class='holding'></div>
+    </div>
 </div>
 <script>
 function $(str) { return document.querySelector(str); }
@@ -425,8 +459,9 @@ function change(who, opt) {
     $(`.${who}`).className = `${who} ${val}`;
 }
 
-function changeEyes(opt) {
-    $(".headspace").className = `headspace ${opt.text}`;
+function changeEyes(who, opt) {
+    console.dir(opt);
+    $(".eyecolor").className = `eyecolor ${opt.value}`;
 }
 
 function changeMouth(opt) {
@@ -450,6 +485,7 @@ function changeMouth(opt) {
             if (opt.value) {
                 console.log(`hair/${opt.value}.png`);
                 $("#hairimg").src = `hair/${opt.value}.png`;
+                $(".hair").className = "hair " + opt.value.replace(/\W/, '_');
             }
         }
 

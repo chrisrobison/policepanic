@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <head>
     <meta charset="utf-8">
     <title></title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400&display=swap" rel="stylesheet">
     <style>
+        body {
+            font-family: "Lexend", sans-serif;
+        }
 .head {
-    background-image: url('head.png');
-    width: 306px;
-    height: 377px;
+    background-image: url(head.png);
+    width: 19em;
+    height: 23em;
     background-repeat: no-repeat;
     background-size: contain;
-    display:inline-block;
+    display: inline-block;
     position: relative;
+    top: -1.2em;
 }
 .black .head {
     filter: brightness(0.3) saturate(300%) contrast(100%); 
@@ -44,11 +49,11 @@
     position:absolute; 
     background-repeat:no-repeat;
     background-size: contain;
-    top: 21vh;
-    left: 5vw;
+    top: 13em;
+    left: 5.5em;
     background-image: url("mouths/nice/default.png");
-    width:138px;
-    height:75px;
+    width:8.5em;
+    height:5em;
     transition: all 1s linear;
 }
 
@@ -56,16 +61,16 @@
     background-image: url("mouths/nice/big.png");
     width:131px;
     height:73px;
-    top:19vh;
-    left:6vw;
+    top:12em;
+    left:6em;
 }
 
 .mouth.huge {
     background-image: url("mouths/nice/huge.png");
-    width:103px;
-    height:64px;
-    top:21vh;
-    left:6.5vw;
+    width:10em;
+    height:5em;
+    top:12em;
+    left:6.3em;
 }
 
 .mouth.default {
@@ -263,9 +268,9 @@
     top:-3em;
     left:0.7em;
     width: 17.5em;
-    height:15em;
-    filter: brightness(0);
-
+    height:13em;
+    transform: scale(0.5);
+    margin-left:4.4em;
 }
 .hair > img {
     width: 100%;
@@ -278,6 +283,7 @@
     width:27em;
     height:20em;
 }
+
 .hair.male_style6 {
     top: -2.2em;
 }
@@ -289,9 +295,60 @@
     height: 16em;
 }
 
+.hair.male_style7 {
+    top: -4.5em;
+}
+
+.hair.male_style9 {
+    width: 20em;
+    left: -0.6em;
+    height: 14em;
+    top: -3em;
+}
+
+.hair.male_style10 {
+    width: 16.8em;
+    left: 1.2em;
+    top: -2em;
+    height: 11em;
+}
+
+.hair.male_style4 {
+    height: 11em;
+    width: 17.5em;
+    left: 0.6em;
+    top: -2.9em;
+}
+
+.hair.male_style12 {
+    height: 9.3em;
+    top: -1.2em;
+    width: 16.4em;
+    left: 1.4em;
+}
+
+.hair.male_style14 {
+    height: 11em;
+}
+
+.hair.male_style13 {
+    height: 11.3em;
+    width: 16.8em;
+    left: 1.2em;
+    top: -2.2em;
+}
+
+.hair.female_style2 {
+    height: 33em;
+    width: 22em;
+    left: -2em;
+    top: -4em;
+}
+
 .flip {
     transform: scaleY(-1);
 }
+
 .body {
     background-image: url("jeans.png");
     width: 16.5em;
@@ -317,139 +374,190 @@
 }
 .holding {
     position:absolute;
-    background-image:url("guns.png");
+    background-image:url("moneybags.png");
     background-size: 100% auto;
-    height:1000px;
-    width:300px;
+    height:21em;
+    width:26em;
     background-repeat:no-repeat;
-    top: 100px;
-    left: -20px;
+    top: 6em;
+    left: -5em;
+}
+.threat {
+    background-image: url("guns.png");
+    height:21em;
+    width:18em;
+    left: -1em;
+    top: 7em;
+    
+}
+main {
+    display:flex;
+}
+main fieldset {
+    flex-grow: 1
+}
+.flowers {
+    background-image: url("flowers-hand.png");
+    background-size: 100% auto;
+    width: 26em;
+    background-repeat: no-repeat;
+    top:0px;
+    left: -5.5em;
+}
+label {
+    width:5em;
+    display:inline-block;
+    text-align: right;
+}
+fieldset {
 }
     </style>
 </head>
 
 <body>
-    <label for='ethnicity'>Ethnicity</label>
-    <select id='ethnicity' onchange="change('headspace', this.options[this.selectedIndex])">
-        <option>asian</option>
-        <option>black</option>
-        <option>hispanic</option>
-        <option>white</option>
-    </select>
-    <label for='eyes'>Eyes</label>
-    <select id='eyes' onchange="change('eyes', this.options[this.selectedIndex])">
-        <optgroup label="Aggressive">
-		    <option selected='true'>concentrated</option>
-            <option>intent</option>
-		    <option>livid</option>
-    		<option>focused</option>
-    		<option>worried</option>
-        </optgroup>
-        <optgroup label="Friendly">
-            <option>concerned</option>
-            <option>innocent</option>
-            <option>scared</option>
-            <option>sideeye</option>
-            <option>staring</option>
-        </optgroup>
-    </select>
-    <label for='eyecolor'>Eye Color</label>
-    <select id='eyecolor' onchange="changeEyes('eyecolor', this.options[this.selectedIndex])">
-        <option value='browneyes' selected>brown</option>
-        <option value='blueeyes'>blue</option>
-        <option value='greeneyes'>green</option>
-        <option value='demoneyes'>demon</option>
-    </select>
-    <label for='mouth'>Mouth</label>
-    <select id='mouth' onchange="change('mouth', this.options[this.selectedIndex])">
-        <optgroup label="Aggressive">
-            <option>frazzled</option>
-            <option>frown</option>
-            <option>grrrr</option>
-            <option>mad</option>
-            <option>pissed</option>
-            <option>scowl</option>
-            <option>worried</option>
-        </optgroup>
-        <optgroup label="Friendly">
-            <option value='big'>big, toothy smile</option>
-            <option value='huge'>huge smile w/teeth</option>
-            <option selected='true' value='default'>default smile</option>
-            <option value='open_right'>open smile, right</option>
-            <option value='smile'>alternate smile</option>
-            <option value='thin'>thin grin</option>
-            <option value='distraught'>distraught grin</option>
-        </optgroup>
-    </select>
-    <label for='hair'>Hair</label>
-    <select id='hair' onchange="app.changeHair('hair', this.options[this.selectedIndex])">
-        <optgroup label="Male">
-            <option value="male/style1">style 1</option>
-            <option value="male/style2">afro</option>
-            <option value="male/style3">style 3</option>
-            <option value="male/style4">style 4</option>
-            <option value="male/style5">style 5</option>
-            <option value="male/style6">style 6</option>
-            <option value="male/style7">style 7</option>
-            <option value="male/style8">style 8</option>
-            <option value="male/style9">style 9</option>
-            <option value="male/style10">style 10</option>
-            <option value="male/style11">style 11</option>
-            <option value="male/style12">style 12</option>
-            <option value="male/style13">style 13</option>
-            <option value="male/style14">style 14</option>
-            <option value="male/style15">style 15</option>
-        </optgroup>
-        <optgroup label="Female">
-            <option value="female/style1">style 1</option>
-            <option value="female/style2">style 2</option>
-            <option value="female/style3">style 3</option>
-            <option value="female/style4">style 4</option>
-            <option value="female/style5">style 5</option>
-            <option value="female/style6">style 6</option>
-            <option value="female/style7">style 7</option>
-            <option value="female/style8">style 8</option>
-            <option value="female/style9">style 9</option>
-            <option value="female/style10">style 10</option>
-            <option value="female/style11">style 11</option>
-            <option value="female/style12">style 12</option>
-            <option value="female/style13">style 13</option>
-            <option value="female/style14">style 14</option>
-            <option value="female/style15">style 15</option>
-        </optgroup>
-        <optgroup label="Unisex">
-            <option value="unisex/style1">style 1</option>
-            <option value="unisex/style2">style 2</option>
-            <option value="unisex/style3">style 3</option>
-            <option value="unisex/style4">style 4</option>
-            <option value="unisex/style5">style 5</option>
-            <option value="unisex/style6">style 6</option>
-        </optgroup>
-    </select>
-    <br>
-<fieldset>
-    <legend>Options</legend>
-    <label for='flipmouth'>Flip Mouth</label>
-    <input type='checkbox' id='flipmouth' onchange="$('.mouth').classList.toggle('flip')">
+    <main>
+        <fieldset>
+            <legend>Parts</legend>
+            <label for='ethnicity'>Ethnicity</label>
+            <select id='ethnicity' onchange="change('headspace', this.options[this.selectedIndex])">
+                <option>asian</option>
+                <option>black</option>
+                <option>hispanic</option>
+                <option>white</option>
+            </select>
+            <br>
+            <label for='eyes'>Eyes</label>
+            <select id='eyes' onchange="change('eyes', this.options[this.selectedIndex])">
+                <optgroup label="Aggressive">
+                    <option>concentrated</option>
+                    <option>intent</option>
+                    <option>livid</option>
+                    <option>focused</option>
+                    <option>worried</option>
+                </optgroup>
+                <optgroup label="Friendly">
+                    <option>concerned</option>
+                    <option selected='true'>innocent</option>
+                    <option>scared</option>
+                    <option>sideeye</option>
+                    <option>staring</option>
+                </optgroup>
+            </select>
+            <br>
+            <label for='eyecolor'>Eye Color</label>
+            <select id='eyecolor' onchange="changeEyes('eyecolor', this.options[this.selectedIndex])">
+                <option value='browneyes' selected>brown</option>
+                <option value='blueeyes'>blue</option>
+                <option value='greeneyes'>green</option>
+                <option value='demoneyes'>demon</option>
+            </select>
+            <br>
+            <label for='mouth'>Mouth</label>
+            <select id='mouth' onchange="change('mouth', this.options[this.selectedIndex])">
+                <optgroup label="Aggressive">
+                    <option>frazzled</option>
+                    <option>frown</option>
+                    <option>grrrr</option>
+                    <option>mad</option>
+                    <option>pissed</option>
+                    <option>scowl</option>
+                    <option>worried</option>
+                </optgroup>
+                <optgroup label="Friendly">
+                    <option value='big'>big, toothy smile</option>
+                    <option value='huge'>huge smile w/teeth</option>
+                    <option selected='true' value='default'>default smile</option>
+                    <option value='open_right'>open smile, right</option>
+                    <option value='smile'>alternate smile</option>
+                    <option value='thin'>thin grin</option>
+                    <option value='distraught'>distraught grin</option>
+                </optgroup>
+            </select>
+            <br>
+            <label for='hair'>Hair</label>
+            <select id='hair' onchange="app.changeHair('hair', this.options[this.selectedIndex])">
+                <optgroup label="Male">
+                    <option value="male/style1">style 1</option>
+                    <option value="male/style2">afro</option>
+                    <option value="male/style3">style 3</option>
+                    <option value="male/style4">style 4</option>
+                    <option value="male/style5">style 5</option>
+                    <option value="male/style6">style 6</option>
+                    <option value="male/style7">style 7</option>
+                    <option value="male/style8">style 8</option>
+                    <option value="male/style9">style 9</option>
+                    <option value="male/style10">style 10</option>
+                    <option value="male/style11">style 11</option>
+                    <option value="male/style12">style 12</option>
+                    <option value="male/style13">style 13</option>
+                    <option value="male/style14">style 14</option>
+                    <option value="male/style15">style 15</option>
+                </optgroup>
+                <optgroup label="Female">
+                    <option value="female/style1">style 1</option>
+                    <option value="female/style2">style 2</option>
+                    <option value="female/style3">style 3</option>
+                    <option value="female/style4">style 4</option>
+                    <option value="female/style5">style 5</option>
+                    <option value="female/style6">style 6</option>
+                    <option value="female/style7">style 7</option>
+                    <option value="female/style8">style 8</option>
+                    <option value="female/style9">style 9</option>
+                    <option value="female/style10">style 10</option>
+                    <option value="female/style11">style 11</option>
+                    <option value="female/style12">style 12</option>
+                    <option value="female/style13">style 13</option>
+                    <option value="female/style14">style 14</option>
+                    <option value="female/style15">style 15</option>
+                </optgroup>
+                <optgroup label="Unisex">
+                    <option value="unisex/style1">style 1</option>
+                    <option value="unisex/style2">style 2</option>
+                    <option value="unisex/style3">style 3</option>
+                    <option value="unisex/style4">style 4</option>
+                    <option value="unisex/style5">style 5</option>
+                    <option value="unisex/style6">style 6</option>
+                </optgroup>
+            </select>
+            <br>
+        </fieldset>
+        <fieldset>
+            <legend>Options</legend>
+            <label for='flipmouth'>Flip Mouth</label>
+            <input type='checkbox' id='flipmouth' onchange="$('.mouth').classList.toggle('flip')">
+            <label for='threat'>Threat</label>
+            <input type='checkbox' id='threat' onchange="$('.holding').classList.toggle('threat')">
+            <br>
 
-    <label for='flipeyes'>Flip Eyes</label>
-    <input type='checkbox' id='flipeyes' onchange="$('.eyes').classList.toggle('flip')">
-</fieldset>     
-<div class='person'>
-    <div class='headspace white'>
-        <div class='head'></div>
-        <div class='hair'><img id='hairimg' src='hair/male/style1.png'></div>
-        <div class='eyecolor'>
-            <div class='eyes concentrated'>
+            <label for='flipeyes'>Flip Eyes</label>
+            <input type='checkbox' id='flipeyes' onchange="$('.eyes').classList.toggle('flip')">
+        </fieldset>
+        <fieldset>
+            <legend>Hair</legend>
+            <label for='haircolor'>Hue</label>
+            <input type='range' value='0' min='0' max='360' id='haircolor' onchange="app.updateHair()"><br>
+            <label for='hairsat'>Saturation</label>
+            <input type='range' value='100' step='10' min='0' max='1000' id='hairsat' onchange="app.updateHair()"><br>
+            <label for='hairbrt'>Brightness</label>
+            <input type='range' value='1' min='0' max='3' step='.1' id='hairbri' onchange="app.updateHair()">
+
+        </fieldset> 
+    </main>
+    <div class='person'>
+        <div class='headspace white'>
+            <div class='head'></div>
+            <div class='eyecolor'>
+                <div class='eyes innocent'>
+                </div>
             </div>
+            <div class='nose'></div>
+            <div class='mouth'></div>
         </div>
-        <div class='nose'></div>
-        <div class='mouth'></div>
+        <div class='body'>
+            <div class='holding flowers'></div>
+        </div>
+        <div class='hair'><img id='hairimg' src='hair/male/style1.png'></div>
     </div>
-    <div class='body'>
-        <div class='holding'></div>
-    </div>
-</div>
 <script>
 function $(str) { return document.querySelector(str); }
 function $$(str) { return document.querySelectorAll(str); }
@@ -480,6 +588,15 @@ function changeMouth(opt) {
             mouth: {
                 invert: false
             }
+        },
+        updateHair: function() {
+            let hue = $("#haircolor").value + 'deg';
+            let sat = $("#hairsat").value + '%';
+            let bri = $("#hairbri").value;
+
+            let filter = `hue-rotate(${hue}) saturate(${sat}) brightness(${bri}) drop-shadow(1px 3px 3px #0009)`;
+            console.log(filter);
+            $('.hair').style.filter = filter;
         },
         changeHair: function(who, opt) {
             if (opt.value) {

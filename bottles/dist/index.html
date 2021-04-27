@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>body {
+            font-family: Helvetica Neue, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 14px
+        }
+
+        header {
+            background-color: #999;
+            color: #eee;
+            height: 0
+        }
+
+        main {
+            background-color: #333;
+            color: #ddd;
+            height: 100vh;
+            overflow: scroll
+        }
+
+        footer {
+            background-color: #666;
+            color: #eee;
+            height: 0
+        }
+
+        #bottles {
+            position: absolute;
+            top: 0px;
+            width: 100vw;
+            height: 100vh;
+            left: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .results {
+            position: absolute;
+            top: -400px;
+            left: 100px;
+            width: 100vw;
+            height: 400px;
+        }
+
+        .assembled {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            perspective: 1500px;
+            overflow: visible;
+
+        }
+        .hide {
+            display: none;
+        }
+
+        .assembled img {
+            animation: spin 1000ms linear infinite;
+            transition: all 8000ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate3d(0, 1, 0, 0deg);
+                transform-origin: 50% 0%;
+            }
+
+            100% {
+                transform: rotate3d(.5, -1.5, .5, 1440deg);
+                transform-origin: 0% 50%;
+            }
+        }
+        @keyframes spin2 {
+            0% {
+                transform: rotate3d(0, 1, 0, 0deg);
+            }
+
+            100% {
+                transform: rotate3d(.5, -1.5, .5, 720deg);
+            }
+        }
+</style>
+</head>
+
+<body>
+    <main> <canvas height="600" width="800"></canvas> </main>
+    <div id="bottles">
+        <img class="hide" id="absolute" src="/absolute.7e0633df.png">
+        <img class="hide" id="amaro" src="/amaro.58e5bbd7.png">
+        <img class="hide" id="baileys" src="/baileys.0bb496e3.png">
+        <img class="hide" id="becherovka" src="/becherovka.d636db19.png">
+        <img class="hide" id="beefeater" src="/beefeater.12384a86.png">
+        <img class="hide" id="chivasregal" src="/chivasregal.be99041d.png">
+        <img class="hide" id="contreau" src="/contreau.8c795d8c.png">
+        <img class="hide" id="curacao" src="/curacao.e26ccdc5.png">
+        <img class="hide" id="havanaclub" src="/havanaclub.ca4be54a.png">
+        <img class="hide" id="jackdaniels" src="/jackdaniels.3413cc5b.png">
+        <img class="hide" id="jagermeister" src="/jagermeister.0249cca4.png">
+        <img id="jameson" src="/jameson.461bc8bb.png">
+        <img class="hide" id="kahlua" src="/kahlua.f8b386b5.png">
+        <img class="hide" id="malibu" src="/malibu.d4ff8167.png">
+        <img class="hide" id="martell" src="/martell.f7b6e936.png">
+        <img class="hide" id="olmeca" src="/olmeca.24a30d44.png">
+        <img class="hide" id="pernod" src="/pernod.a6d1882b.png">
+        <img class="hide" id="sambuca" src="/sambuca.4d1a5692.png">
+    </div>
+    <div class="results"></div>
+    <div class="assembled"></div>
+    <script src="/index.72166a09.js"></script>
+</body>
+
+</html>

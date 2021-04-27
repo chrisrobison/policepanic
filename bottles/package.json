@@ -1,0 +1,27 @@
+{
+  "name": "bottles",
+  "version": "1.0.0",
+  "main": "index.html",
+  "browser": true,
+  "author": "Christopher D. Robison",
+  "license": "MIT",
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "staticFiles": {
+    "staticPath": "./src/static",
+    "watcherGlob": "**"
+  },
+  "dependencies": {
+    "@babel/core": "^7.12.0",
+    "@cdgugler/shatter": "^2.0.1",
+    "babel": "^6.23.0",
+    "node": "^14.15.2",
+    "parcel-plugin-static-files-copy": "^2.6.0",
+    "postcss": "^8.2.1"
+  },
+  "devDependencies": {
+    "parcel": "^2.0.0-beta.2"
+  }
+}

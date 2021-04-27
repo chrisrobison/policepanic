@@ -1,0 +1,1779 @@
+// modules are defined as an array
+// [ module function, map of requires ]
+//
+// map of requires is short require name -> numeric require
+//
+// anything defined in a previous bundle is accessed via the
+// orig method which is the require for previous bundles
+
+(function(modules, entry, mainEntry, parcelRequireName, globalName) {
+  /* eslint-disable no-undef */
+  var globalObject =
+    typeof globalThis !== 'undefined'
+      ? globalThis
+      : typeof self !== 'undefined'
+      ? self
+      : typeof window !== 'undefined'
+      ? window
+      : typeof global !== 'undefined'
+      ? global
+      : {};
+  /* eslint-enable no-undef */
+
+  // Save the require from previous bundle to this closure if any
+  var previousRequire =
+    typeof globalObject[parcelRequireName] === 'function' &&
+    globalObject[parcelRequireName];
+
+  var cache = previousRequire.cache || {};
+  // Do not use `require` to prevent Webpack from trying to bundle this call
+  var nodeRequire =
+    typeof module !== 'undefined' &&
+    typeof module.require === 'function' &&
+    module.require.bind(module);
+
+  function newRequire(name, jumped) {
+    if (!cache[name]) {
+      if (!modules[name]) {
+        // if we cannot find the module within our internal map or
+        // cache jump to the current global require ie. the last bundle
+        // that was added to the page.
+        var currentRequire =
+          typeof globalObject[parcelRequireName] === 'function' &&
+          globalObject[parcelRequireName];
+        if (!jumped && currentRequire) {
+          return currentRequire(name, true);
+        }
+
+        // If there are other bundles on this page the require from the
+        // previous one is saved to 'previousRequire'. Repeat this as
+        // many times as there are bundles until the module is found or
+        // we exhaust the require chain.
+        if (previousRequire) {
+          return previousRequire(name, true);
+        }
+
+        // Try the node require function if it exists.
+        if (nodeRequire && typeof name === 'string') {
+          return nodeRequire(name);
+        }
+
+        var err = new Error("Cannot find module '" + name + "'");
+        err.code = 'MODULE_NOT_FOUND';
+        throw err;
+      }
+
+      localRequire.resolve = resolve;
+      localRequire.cache = {};
+
+      var module = (cache[name] = new newRequire.Module(name));
+
+      modules[name][0].call(
+        module.exports,
+        localRequire,
+        module,
+        module.exports,
+        this
+      );
+    }
+
+    return cache[name].exports;
+
+    function localRequire(x) {
+      return newRequire(localRequire.resolve(x));
+    }
+
+    function resolve(x) {
+      return modules[name][1][x] || x;
+    }
+  }
+
+  function Module(moduleName) {
+    this.id = moduleName;
+    this.bundle = newRequire;
+    this.exports = {};
+  }
+
+  newRequire.isParcelRequire = true;
+  newRequire.Module = Module;
+  newRequire.modules = modules;
+  newRequire.cache = cache;
+  newRequire.parent = previousRequire;
+  newRequire.register = function(id, exports) {
+    modules[id] = [
+      function(require, module) {
+        module.exports = exports;
+      },
+      {},
+    ];
+  };
+
+  Object.defineProperty(newRequire, 'root', {
+    get: function() {
+      return globalObject[parcelRequireName];
+    },
+  });
+
+  globalObject[parcelRequireName] = newRequire;
+
+  for (var i = 0; i < entry.length; i++) {
+    newRequire(entry[i]);
+  }
+
+  if (mainEntry) {
+    // Expose entry point to Node, AMD or browser globals
+    // Based on https://github.com/ForbesLindesay/umd/blob/master/template.js
+    var mainExports = newRequire(mainEntry);
+
+    // CommonJS
+    if (typeof exports === 'object' && typeof module !== 'undefined') {
+      module.exports = mainExports;
+
+      // RequireJS
+    } else if (typeof define === 'function' && define.amd) {
+      define(function() {
+        return mainExports;
+      });
+
+      // <script>
+    } else if (globalName) {
+      this[globalName] = mainExports;
+    }
+  }
+})({"2FQzm":[function(require,module,exports) {
+var HMR_HOST = null;
+var HMR_PORT = 1234;
+var HMR_SECURE = false;
+var HMR_ENV_HASH = "d751713988987e9331980363e24189ce";
+module.bundle.HMR_BUNDLE_ID = "c75227167347e57df55b258c72166a09";
+// @flow
+/*global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE*/
+/*::
+import type {
+HMRAsset,
+HMRMessage,
+} from '@parcel/reporter-dev-server/src/HMRServer.js';
+interface ParcelRequire {
+(string): mixed;
+cache: {|[string]: ParcelModule|};
+hotData: mixed;
+Module: any;
+parent: ?ParcelRequire;
+isParcelRequire: true;
+modules: {|[string]: [Function, {|[string]: string|}]|};
+HMR_BUNDLE_ID: string;
+root: ParcelRequire;
+}
+interface ParcelModule {
+hot: {|
+data: mixed,
+accept(cb: (Function) => void): void,
+dispose(cb: (mixed) => void): void,
+// accept(deps: Array<string> | string, cb: (Function) => void): void,
+// decline(): void,
+_acceptCallbacks: Array<(Function) => void>,
+_disposeCallbacks: Array<(mixed) => void>,
+|};
+}
+declare var module: {bundle: ParcelRequire, ...};
+declare var HMR_HOST: string;
+declare var HMR_PORT: string;
+declare var HMR_ENV_HASH: string;
+declare var HMR_SECURE: boolean;
+*/
+var OVERLAY_ID = '__parcel__error__overlay__';
+var OldModule = module.bundle.Module;
+function Module(moduleName) {
+  OldModule.call(this, moduleName);
+  this.hot = {
+    data: module.bundle.hotData,
+    _acceptCallbacks: [],
+    _disposeCallbacks: [],
+    accept: function (fn) {
+      this._acceptCallbacks.push(fn || (function () {}));
+    },
+    dispose: function (fn) {
+      this._disposeCallbacks.push(fn);
+    }
+  };
+  module.bundle.hotData = undefined;
+}
+module.bundle.Module = Module;
+var checkedAssets, /*: {|[string]: boolean|}*/
+acceptedAssets, /*: {|[string]: boolean|}*/
+/*: {|[string]: boolean|}*/
+assetsToAccept;
+function getHostname() {
+  return HMR_HOST || (location.protocol.indexOf('http') === 0 ? location.hostname : 'localhost');
+}
+function getPort() {
+  return HMR_PORT || location.port;
+}
+// eslint-disable-next-line no-redeclare
+var parent = module.bundle.parent;
+if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
+  var hostname = getHostname();
+  var port = getPort();
+  var protocol = HMR_SECURE || location.protocol == 'https:' && !(/localhost|127.0.0.1|0.0.0.0/).test(hostname) ? 'wss' : 'ws';
+  var ws = new WebSocket(protocol + '://' + hostname + (port ? ':' + port : '') + '/');
+  // $FlowFixMe
+  ws.onmessage = function (event) /*: {data: string, ...}*/
+  {
+    checkedAssets = {
+      /*: {|[string]: boolean|}*/
+    };
+    acceptedAssets = {
+      /*: {|[string]: boolean|}*/
+    };
+    assetsToAccept = [];
+    var data = /*: HMRMessage*/
+    JSON.parse(event.data);
+    if (data.type === 'update') {
+      // Remove error overlay if there is one
+      removeErrorOverlay();
+      let assets = data.assets.filter(asset => asset.envHash === HMR_ENV_HASH);
+      // Handle HMR Update
+      var handled = false;
+      assets.forEach(asset => {
+        var didAccept = asset.type === 'css' || asset.type === 'js' && hmrAcceptCheck(module.bundle.root, asset.id, asset.depsByBundle);
+        if (didAccept) {
+          handled = true;
+        }
+      });
+      if (handled) {
+        console.clear();
+        assets.forEach(function (asset) {
+          hmrApply(module.bundle.root, asset);
+        });
+        for (var i = 0; i < assetsToAccept.length; i++) {
+          var id = assetsToAccept[i][1];
+          if (!acceptedAssets[id]) {
+            hmrAcceptRun(assetsToAccept[i][0], id);
+          }
+        }
+      } else {
+        window.location.reload();
+      }
+    }
+    if (data.type === 'error') {
+      // Log parcel errors to console
+      for (let ansiDiagnostic of data.diagnostics.ansi) {
+        let stack = ansiDiagnostic.codeframe ? ansiDiagnostic.codeframe : ansiDiagnostic.stack;
+        console.error('🚨 [parcel]: ' + ansiDiagnostic.message + '\n' + stack + '\n\n' + ansiDiagnostic.hints.join('\n'));
+      }
+      // Render the fancy html overlay
+      removeErrorOverlay();
+      var overlay = createErrorOverlay(data.diagnostics.html);
+      // $FlowFixMe
+      document.body.appendChild(overlay);
+    }
+  };
+  ws.onerror = function (e) {
+    console.error(e.message);
+  };
+  ws.onclose = function (e) {
+    if (undefined !== 'test') {
+      console.warn('[parcel] 🚨 Connection to the HMR server was lost');
+    }
+  };
+}
+function removeErrorOverlay() {
+  var overlay = document.getElementById(OVERLAY_ID);
+  if (overlay) {
+    overlay.remove();
+    console.log('[parcel] ✨ Error resolved');
+  }
+}
+function createErrorOverlay(diagnostics) {
+  var overlay = document.createElement('div');
+  overlay.id = OVERLAY_ID;
+  let errorHTML = '<div style="background: black; opacity: 0.85; font-size: 16px; color: white; position: fixed; height: 100%; width: 100%; top: 0px; left: 0px; padding: 30px; font-family: Menlo, Consolas, monospace; z-index: 9999;">';
+  for (let diagnostic of diagnostics) {
+    let stack = diagnostic.codeframe ? diagnostic.codeframe : diagnostic.stack;
+    errorHTML += `
+      <div>
+        <div style="font-size: 18px; font-weight: bold; margin-top: 20px;">
+          🚨 ${diagnostic.message}
+        </div>
+        <pre>
+          ${stack}
+        </pre>
+        <div>
+          ${diagnostic.hints.map(hint => '<div>' + hint + '</div>').join('')}
+        </div>
+      </div>
+    `;
+  }
+  errorHTML += '</div>';
+  overlay.innerHTML = errorHTML;
+  return overlay;
+}
+function getParents(bundle, id) /*: Array<[ParcelRequire, string]>*/
+{
+  var modules = bundle.modules;
+  if (!modules) {
+    return [];
+  }
+  var parents = [];
+  var k, d, dep;
+  for (k in modules) {
+    for (d in modules[k][1]) {
+      dep = modules[k][1][d];
+      if (dep === id || Array.isArray(dep) && dep[dep.length - 1] === id) {
+        parents.push([bundle, k]);
+      }
+    }
+  }
+  if (bundle.parent) {
+    parents = parents.concat(getParents(bundle.parent, id));
+  }
+  return parents;
+}
+function updateLink(link) {
+  var newLink = link.cloneNode();
+  newLink.onload = function () {
+    if (link.parentNode !== null) {
+      // $FlowFixMe
+      link.parentNode.removeChild(link);
+    }
+  };
+  newLink.setAttribute('href', // $FlowFixMe
+  link.getAttribute('href').split('?')[0] + '?' + Date.now());
+  // $FlowFixMe
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+var cssTimeout = null;
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+    for (var i = 0; i < links.length; i++) {
+      // $FlowFixMe[incompatible-type]
+      var href = /*: string*/
+      links[i].getAttribute('href');
+      var hostname = getHostname();
+      var servedFromHMRServer = hostname === 'localhost' ? new RegExp('^(https?:\\/\\/(0.0.0.0|127.0.0.1)|localhost):' + getPort()).test(href) : href.indexOf(hostname + ':' + getPort());
+      var absolute = (/^https?:\/\//i).test(href) && href.indexOf(window.location.origin) !== 0 && !servedFromHMRServer;
+      if (!absolute) {
+        updateLink(links[i]);
+      }
+    }
+    cssTimeout = null;
+  }, 50);
+}
+function hmrApply(bundle, /*: ParcelRequire*/
+asset) /*:  HMRAsset*/
+{
+  var modules = bundle.modules;
+  if (!modules) {
+    return;
+  }
+  if (asset.type === 'css') {
+    reloadCSS();
+    return;
+  }
+  let deps = asset.depsByBundle[bundle.HMR_BUNDLE_ID];
+  if (deps) {
+    var fn = new Function('require', 'module', 'exports', asset.output);
+    modules[asset.id] = [fn, deps];
+  } else if (bundle.parent) {
+    hmrApply(bundle.parent, asset);
+  }
+}
+function hmrAcceptCheck(bundle, /*: ParcelRequire*/
+id, /*: ParcelRequire*/
+/*: string*/
+depsByBundle) /*: ?{ [string]: { [string]: string } }*/
+{
+  var modules = bundle.modules;
+  if (!modules) {
+    return;
+  }
+  if (depsByBundle && !depsByBundle[bundle.HMR_BUNDLE_ID]) {
+    // If we reached the root bundle without finding where the asset should go,
+    // there's nothing to do. Mark as "accepted" so we don't reload the page.
+    if (!bundle.parent) {
+      return true;
+    }
+    return hmrAcceptCheck(bundle.parent, id, depsByBundle);
+  }
+  if (checkedAssets[id]) {
+    return;
+  }
+  checkedAssets[id] = true;
+  var cached = bundle.cache[id];
+  assetsToAccept.push([bundle, id]);
+  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
+    return true;
+  }
+  return getParents(module.bundle.root, id).some(function (v) {
+    return hmrAcceptCheck(v[0], v[1], null);
+  });
+}
+function hmrAcceptRun(bundle, /*: ParcelRequire*/
+id) /*: string*/
+{
+  var cached = bundle.cache[id];
+  bundle.hotData = {};
+  if (cached && cached.hot) {
+    cached.hot.data = bundle.hotData;
+  }
+  if (cached && cached.hot && cached.hot._disposeCallbacks.length) {
+    cached.hot._disposeCallbacks.forEach(function (cb) {
+      cb(bundle.hotData);
+    });
+  }
+  delete bundle.cache[id];
+  bundle(id);
+  cached = bundle.cache[id];
+  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
+    cached.hot._acceptCallbacks.forEach(function (cb) {
+      var assetsToAlsoAccept = cb(function () {
+        return getParents(module.bundle.root, id);
+      });
+      if (assetsToAlsoAccept && assetsToAccept.length) {
+        assetsToAccept.push.apply(assetsToAccept, assetsToAlsoAccept);
+      }
+    });
+  }
+  acceptedAssets[id] = true;
+}
+
+},{}],"5XPnV":[function(require,module,exports) {
+var _cdguglerShatter = require('@cdgugler/shatter');
+const $ = str => document.querySelector(str);
+const $$ = str => document.querySelectorAll(str);
+const rand = (min, max) => Math.random() * (max - min) + min;
+const shattered = new _cdguglerShatter.Shatter('jameson.png');
+(function () {
+  const app = {
+    init: function () {
+      let imgs = $$("img");
+      imgs.forEach((item, idx) => {
+        let id = item.src.replace(/\.png/, '').replace(/^.*\//, '').replace(/\..*/, '');
+        app.state.maxHeight = Math.max(app.state.maxHeight, item.height);
+        app.state.maxWidth = Math.max(app.state.maxWidth, item.width);
+        app.state.bottles[id].img = item;
+        item.width = app.state.bottles[id].width;
+        item.height = app.state.bottles[id].height;
+        item.style.width = app.state.bottles[id].width + 'px';
+        item.style.height = app.state.bottles[id].height + 'px';
+        app.state.images.push(item);
+      });
+      /*
+      app.config.bottles.forEach((item, idx) => {
+      app.loadImage(item + '.png').then((img) => {
+      app.state.maxHeight = Math.max(app.state.maxHeight, img.height);
+      app.state.maxWidth = Math.max(app.state.maxWidth, img.width);
+      app.state.images.push(img);
+      app.config.images[item] = img;
+      if (idx === app.config.bottles.length -1) {
+      app.state.loaded = true;
+      app.setup();
+      }
+      });
+      });
+      */
+      app.canvas = $("canvas");
+      app.canvas.height = window.innerHeight;
+      app.canvas.width = window.innerWidth;
+      app.canvas.style.width = window.innerWidth + 'px';
+      app.canvas.style.height = window.innerHeight + 'px';
+      app.ctx = app.canvas.getContext('2d');
+      app.canvas.addEventListener("click", app.doClick);
+      $("#bottles").addEventListener("click", app.clickBottle);
+    },
+    loadImage: function (url) {
+      const img = document.createElement('img');
+      return new Promise((resolve, reject) => {
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = url;
+      });
+    },
+    setup: function () {
+      let row = -1, col = 0, xpix = 0;
+      let scale = 0.5;
+      app.config.bottles.forEach((item, idx) => {
+        if (!(idx % 19)) {
+          row++;
+          col = 0;
+          xpix = 0;
+        }
+        app.ctx.drawImage(app.state.images[idx], 0, 0, app.state.bottles[item].width, app.state.bottles[item].height, xpix, row * (app.state.maxHeight * scale) + (app.state.maxHeight * scale - app.state.bottles[item].height * scale), app.state.bottles[item].width * scale, app.state.bottles[item].height * scale);
+        xpix += app.state.bottles[item].width * scale + 2;
+        col++;
+      });
+    },
+    clickBottle: function (e) {
+      console.log("Bottle clicked!");
+      console.dir(e);
+    },
+    doClick: function (e) {
+      app.addParticles(e.offsetX, e.offsetY);
+    },
+    config: {
+      bottles: ['absolute', 'amaro', 'baileys', 'becherovka', 'beefeater', 'chivasregal', 'contreau', 'curacao', 'havanaclub', 'jackdaniels', 'jagermeister', 'jameson', 'kahlua', 'malibu', 'martell', 'olmeca', 'pernod', 'sambuca'],
+      images: {},
+      particles: {
+        number: 40,
+        // number of particles
+        size: {
+          // range for particle size
+          x: [10, 30],
+          y: [10, 30]
+        },
+        initSpeed: 15,
+        // power of explosion
+        gravity: 0.3,
+        // defines how fast particles fall
+        drag: 0.08,
+        // how wide is explosion
+        terminalVelocity: 3,
+        // fastest particles can fall
+        flipSpeed: 0.1
+      },
+      scale: 0.5
+    },
+    state: {
+      loaded: false,
+      images: [],
+      maxHeight: 0,
+      maxWidth: 0,
+      particles: [],
+      bottles: {
+        "absolute": {
+          "width": 144,
+          "height": 446,
+          "src": "absolute"
+        },
+        "amaro": {
+          "width": 136,
+          "height": 518,
+          "src": "amaro"
+        },
+        "baileys": {
+          "width": 168,
+          "height": 414,
+          "src": "baileys"
+        },
+        "becherovka": {
+          "width": 162,
+          "height": 444,
+          "src": "becherovka"
+        },
+        "beefeater": {
+          "width": 142,
+          "height": 518,
+          "src": "beefeater"
+        },
+        "chivasregal": {
+          "width": 174,
+          "height": 450,
+          "src": "chivasregal"
+        },
+        "contreau": {
+          "width": 158,
+          "height": 380,
+          "src": "contreau"
+        },
+        "curacao": {
+          "width": 248,
+          "height": 420,
+          "src": "curacao"
+        },
+        "havanaclub": {
+          "width": 122,
+          "height": 506,
+          "src": "havanaclub"
+        },
+        "jackdaniels": {
+          "width": 184,
+          "height": 516,
+          "src": "jackdaniels"
+        },
+        "jagermeister": {
+          "width": 182,
+          "height": 400,
+          "src": "jagermeister"
+        },
+        "jameson": {
+          "width": 144,
+          "height": 542,
+          "src": "jameson"
+        },
+        "kahlua": {
+          "width": 144,
+          "height": 478,
+          "src": "kahlua"
+        },
+        "malibu": {
+          "width": 148,
+          "height": 506,
+          "src": "malibu"
+        },
+        "martell": {
+          "width": 160,
+          "height": 524,
+          "src": "martell"
+        },
+        "olmeca": {
+          "width": 142,
+          "height": 434,
+          "src": "olmeca"
+        },
+        "pernod": {
+          "width": 144,
+          "height": 510,
+          "src": "pernod"
+        },
+        "sambuca": {
+          "width": 126,
+          "height": 500,
+          "src": "sambuca"
+        }
+      }
+    },
+    shatter: async function (bottle, num = 10) {
+      console.dir(bottle);
+      const voropieces = _cdguglerShatter.VoronoiPieces({
+        height: bottle.height,
+        width: bottle.width,
+        numPieces: num
+      });
+      app.ctx.beginPath();
+      app.ctx.moveTo(100, 100);
+      app.ctx.strokeStyle = 'red';
+      voropieces.forEach((points, idx) => {
+        app.ctx.moveTo(points[0][0], points[0][1]);
+        points.forEach((point, idx) => {
+          app.ctx.lineTo(point[0], point[1]);
+        });
+      });
+      app.ctx.stroke();
+      const vshatter = new _cdguglerShatter.Shatter(bottle.img.src);
+      vshatter.setPieces(voropieces);
+      let results = await vshatter.shatter();
+      console.dir(results);
+      const rdiv = $(".results"), assembled = $(".assembled");
+      app.addParticles(400, 400, results);
+      assembled.innerHTML = '';
+      rdiv.innerHTML = '';
+      assembled.style.width = window.innerWidth + 'px';
+      assembled.style.height = window.innerHeight + 'px';
+      results.forEach((res, i) => {
+        rdiv.appendChild(res.image);
+        const clone = res.image.cloneNode();
+        clone.setAttribute('style', `position: absolute; top: ${res.y}px; left: ${res.x}px;animation-duration:${~~(Math.random() * 900) + 400}ms; animation-delay:${~~(Math.random() * 500) + 300}ms;`);
+        assembled.appendChild(clone);
+        setTimeout(function () {
+          clone.style.top = "1000px";
+          clone.style.left = "1600px";
+        }, 100);
+      });
+    },
+    addParticles: function (x = 400, y = 300, parts) {
+      for (let i = 0; i < parts.length; i++) {
+        app.state.particles.push(new Particle(x, y, parts[i]));
+      }
+      window.requestAnimationFrame(app.updateParticle);
+    },
+    updateParticle: function () {
+      app.ctx.clearRect(0, 0, app.canvas.width, app.canvas.height);
+      app.state.particles.forEach((c, i) => {
+        c.render();
+        if (c.remove) {
+          app.state.particles.splice(i, 1);
+        }
+        app.ctx.setTransform(1, 0, 0, 1, 0, 0);
+      });
+      if (app.state.particles.length) window.requestAnimationFrame(app.updateParticle);
+    }
+  };
+  window.app = app;
+  window.onload = app.init;
+  function Bottle(x, y, scale) {
+    this.drink = app.config.bottles[~~(Math.random() * app.config.bottles.length)];
+    this.x = x;
+    this.y = y;
+    this.scale = scale;
+    this.image = app.config.images[this.drink];
+    this.width = app.state.bottles[this.drink].width;
+    this.height = app.state.bottles[this.drink].height;
+    function update() {}
+    function render() {
+      app.ctx.drawImage(this.image, 0, 0, this.width, this.height, this.x, this.y, this.x + this.width * this.scale, this.y + this.height * this.scale);
+    }
+  }
+  function Particle(x, y, part) {
+    this.randomModifier = rand(-1, 1);
+    this.dimensions = {
+      x: part.image.offsetWidth,
+      y: part.image.offsetHeight
+    };
+    this.position = {
+      x: x,
+      y: y
+    };
+    this.rotation = rand(0, 2 * Math.PI);
+    this.scale = {
+      x: 1,
+      y: 1
+    };
+    this.part = part;
+    this.velocity = {
+      x: rand(-app.config.particles.initSpeed, app.config.particles.initSpeed) * 0.4,
+      y: rand(-app.config.particles.initSpeed, app.config.particles.initSpeed)
+    };
+    this.flipSpeed = rand(0.2, 1.5) * app.config.particles.flipSpeed;
+    this.terminalVelocity = rand(.5, 1.5) * app.config.particles.terminalVelocity;
+    this.remove = false;
+    this.update = function () {
+      this.velocity.x *= 0.985;
+      this.position.x += this.velocity.x;
+      this.velocity.y += this.randomModifier * app.config.particles.drag;
+      this.velocity.y += app.config.particles.gravity;
+      this.velocity.y = Math.min(this.velocity.y, this.terminalVelocity);
+      this.position.y += this.velocity.y;
+      this.scale.y = Math.cos((this.position.y + this.randomModifier) * this.flipSpeed);
+      // this.color = this.scale.y > 0 ? this.colorPair.front : this.colorPair.back;
+      this.color = this.scale.y > 0 ? '#111111' : '#eeeeee';
+    };
+    this.render = function () {
+      this.update();
+      app.ctx.translate(this.position.x, this.position.y);
+      app.ctx.rotate(this.rotation);
+      const width = this.dimensions.x * this.scale.x;
+      const height = this.dimensions.y * this.scale.y;
+      app.ctx.fillStyle = this.color;
+      // app.ctx.fillRect(-0.5 * width, -0.5 * height, width, height);
+      app.ctx.drawImage(this.part.image, 0, 0, this.part.image.offsetWidth, this.part.image.offsetHeight, -0.5 * width, -0.5 * height, width, height);
+      this.dimensions.x -= 0.125;
+      this.dimensions.y -= 0.125;
+      if (this.dimensions.x < 0 || this.dimensions.y < 0) {
+        this.remove = true;
+      }
+      app.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    };
+  }
+  function updateParticle() {
+    app.ctx.clearRect(0, 0, app.WIDTH, app.HEIGHT);
+    app.state.particles.forEach((c, i) => {
+      c.render();
+      if (c.remove) {
+        app.state.particles.splice(i, 1);
+      }
+      app.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    });
+    if (app.state.particles.length) window.requestAnimationFrame(app.updateParticle);
+  }
+  function addParticles(x = 400, y = 300, img = app.state.images[3]) {
+    for (let i = 0; i < app.config.particles.number; i++) {
+      app.state.particles.push(new Particle(x, y));
+    }
+    window.requestAnimationFrame(app.updateParticle);
+  }
+})();
+
+},{"@cdgugler/shatter":"1OFFJ"}],"1OFFJ":[function(require,module,exports) {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.VoronoiPieces = exports.Shatter = void 0;
+var shatter_1 = __importDefault(require("./shatter"));
+exports.Shatter = shatter_1.default;
+var voronoi_1 = __importDefault(require("./generators/voronoi"));
+exports.VoronoiPieces = voronoi_1.default;
+
+},{"./shatter":"2naGb","./generators/voronoi":"2qok2"}],"2naGb":[function(require,module,exports) {
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var loadImage_1 = __importDefault(require("./lib/loadImage"));
+var Bounds_1 = __importDefault(require("./lib/Bounds"));
+var Shatter = /** @class */ (function () {
+    function Shatter(url) {
+        this.url = '';
+        this.pieces = [];
+        this.images = [];
+        this.url = url ? url : '';
+    }
+    Shatter.prototype.setImage = function (img) {
+        this.originalImage = img;
+    };
+    Shatter.prototype.setPieces = function (pieces) {
+        this.pieces = pieces;
+    };
+    Shatter.prototype.shatter = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, e_1, results, _b;
+            var _this = this;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        if (!!this.originalImage) return [3 /*break*/, 4];
+                        _c.label = 1;
+                    case 1:
+                        _c.trys.push([1, 3, , 4]);
+                        _a = this;
+                        return [4 /*yield*/, loadImage_1.default(this.url)];
+                    case 2:
+                        _a.originalImage = _c.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        e_1 = _c.sent();
+                        console.error(e_1);
+                        return [2 /*return*/];
+                    case 4:
+                        results = this.pieces.map(function (piece) { return __awaiter(_this, void 0, void 0, function () {
+                            var _this = this;
+                            return __generator(this, function (_a) {
+                                return [2 /*return*/, new Promise(function (res, rej) { return __awaiter(_this, void 0, void 0, function () {
+                                        var tempCanvas, tempCtx, pieceBounds, i, clippedImage, croppedImage;
+                                        var _a, _b, _c, _d, _e;
+                                        return __generator(this, function (_f) {
+                                            switch (_f.label) {
+                                                case 0:
+                                                    if (!this.originalImage) {
+                                                        rej('Image not set');
+                                                    }
+                                                    tempCanvas = document.createElement('canvas');
+                                                    tempCanvas.width = (_b = (_a = this.originalImage) === null || _a === void 0 ? void 0 : _a.width) !== null && _b !== void 0 ? _b : 0;
+                                                    tempCanvas.height = (_d = (_c = this.originalImage) === null || _c === void 0 ? void 0 : _c.height) !== null && _d !== void 0 ? _d : 0;
+                                                    tempCtx = tempCanvas.getContext('2d');
+                                                    pieceBounds = new Bounds_1.default(piece[0]);
+                                                    for (i = 0; i < piece.length; i++) {
+                                                        if (i === 0) {
+                                                            tempCtx === null || tempCtx === void 0 ? void 0 : tempCtx.beginPath();
+                                                            tempCtx === null || tempCtx === void 0 ? void 0 : tempCtx.moveTo(piece[i][0], piece[i][1]);
+                                                            continue;
+                                                        }
+                                                        tempCtx === null || tempCtx === void 0 ? void 0 : tempCtx.lineTo(piece[i][0], piece[i][1]);
+                                                        if (i === piece.length - 1) {
+                                                            tempCtx === null || tempCtx === void 0 ? void 0 : tempCtx.lineTo(piece[0][0], piece[0][1]);
+                                                        }
+                                                        pieceBounds.update(piece[i]);
+                                                    }
+                                                    tempCtx === null || tempCtx === void 0 ? void 0 : tempCtx.clip();
+                                                    tempCtx === null || tempCtx === void 0 ? void 0 : tempCtx.drawImage((_e = this.originalImage) !== null && _e !== void 0 ? _e : new Image(), 0, 0);
+                                                    return [4 /*yield*/, loadImage_1.default(tempCanvas.toDataURL('image/png'))];
+                                                case 1:
+                                                    clippedImage = _f.sent();
+                                                    tempCtx === null || tempCtx === void 0 ? void 0 : tempCtx.clearRect(0, 0, tempCanvas.width, tempCanvas.height);
+                                                    tempCanvas.height = pieceBounds.y.max - pieceBounds.y.min;
+                                                    tempCanvas.width = pieceBounds.x.max - pieceBounds.x.min;
+                                                    tempCtx === null || tempCtx === void 0 ? void 0 : tempCtx.drawImage(clippedImage, -pieceBounds.x.min, -pieceBounds.y.min);
+                                                    return [4 /*yield*/, loadImage_1.default(tempCanvas.toDataURL('image/png'))];
+                                                case 2:
+                                                    croppedImage = _f.sent();
+                                                    res({
+                                                        image: croppedImage,
+                                                        x: pieceBounds.x.min,
+                                                        y: pieceBounds.y.min,
+                                                    });
+                                                    return [2 /*return*/];
+                                            }
+                                        });
+                                    }); })];
+                            });
+                        }); });
+                        _b = this;
+                        return [4 /*yield*/, Promise.all(results)];
+                    case 5:
+                        _b.images = _c.sent();
+                        return [2 /*return*/, Promise.resolve(this.images)];
+                }
+            });
+        });
+    };
+    return Shatter;
+}());
+exports.default = Shatter;
+
+},{"./lib/loadImage":"3govk","./lib/Bounds":"5FE5W"}],"3govk":[function(require,module,exports) {
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+function loadImage(url) {
+    return __awaiter(this, void 0, void 0, function () {
+        var img;
+        return __generator(this, function (_a) {
+            img = document.createElement('img');
+            return [2 /*return*/, new Promise(function (resolve, reject) {
+                    img.onload = function () { return resolve(img); };
+                    img.onerror = reject;
+                    img.src = url;
+                })];
+        });
+    });
+}
+exports.default = loadImage;
+
+},{}],"5FE5W":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Bounds = /** @class */ (function () {
+    function Bounds(coord) {
+        this.x = { min: 0, max: 0 };
+        this.y = { min: 0, max: 0 };
+        this.x.min = this.x.max = coord[0];
+        this.y.min = this.y.max = coord[1];
+    }
+    Bounds.prototype.update = function (coord) {
+        if (coord[0] > this.x.max) {
+            this.x.max = coord[0];
+        }
+        if (coord[0] < this.x.min) {
+            this.x.min = coord[0];
+        }
+        if (coord[1] > this.y.max) {
+            this.y.max = coord[1];
+        }
+        if (coord[1] < this.y.min) {
+            this.y.min = coord[1];
+        }
+    };
+    return Bounds;
+}());
+exports.default = Bounds;
+
+},{}],"2qok2":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var d3_voronoi_1 = require("d3-voronoi");
+function VoronoiPieces(_a) {
+    var _b = _a.height, height = _b === void 0 ? 100 : _b, _c = _a.width, width = _c === void 0 ? 100 : _c, _d = _a.numPieces, numPieces = _d === void 0 ? 4 : _d;
+    var vertices = Array(numPieces)
+        .fill([0, 0])
+        .map(function () {
+        return [Math.floor(Math.random() * width), Math.floor(Math.random() * height)];
+    });
+    var v = d3_voronoi_1.voronoi().extent([
+        [0, 0],
+        [width, height],
+    ]);
+    var pieces = v(vertices).polygons();
+    return pieces.map(function (piece) {
+        return piece
+            .filter(function (point) { return point !== piece['data']; })
+            .map(function (point) {
+            return [Math.ceil(point[0]), Math.ceil(point[1])];
+        });
+    });
+}
+exports.default = VoronoiPieces;
+
+},{"d3-voronoi":"7zrel"}],"7zrel":[function(require,module,exports) {
+var define;
+// https://d3js.org/d3-voronoi/ v1.1.4 Copyright 2018 Mike Bostock
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) : typeof define === 'function' && define.amd ? define(['exports'], factory) : factory(global.d3 = global.d3 || ({}));
+})(this, function (exports) {
+  "use strict";
+  function constant(x) {
+    return function () {
+      return x;
+    };
+  }
+  function x(d) {
+    return d[0];
+  }
+  function y(d) {
+    return d[1];
+  }
+  function RedBlackTree() {
+    this._ = null;
+  }
+  function RedBlackNode(node) {
+    node.U = // parent node
+    node.C = // color - true for red, false for black
+    node.L = // left node
+    node.R = // right node
+    node.P = // previous node
+    node.N = null;
+  }
+  RedBlackTree.prototype = {
+    constructor: RedBlackTree,
+    insert: function (after, node) {
+      var parent, grandpa, uncle;
+      if (after) {
+        node.P = after;
+        node.N = after.N;
+        if (after.N) after.N.P = node;
+        after.N = node;
+        if (after.R) {
+          after = after.R;
+          while (after.L) after = after.L;
+          after.L = node;
+        } else {
+          after.R = node;
+        }
+        parent = after;
+      } else if (this._) {
+        after = RedBlackFirst(this._);
+        node.P = null;
+        node.N = after;
+        after.P = after.L = node;
+        parent = after;
+      } else {
+        node.P = node.N = null;
+        this._ = node;
+        parent = null;
+      }
+      node.L = node.R = null;
+      node.U = parent;
+      node.C = true;
+      after = node;
+      while (parent && parent.C) {
+        grandpa = parent.U;
+        if (parent === grandpa.L) {
+          uncle = grandpa.R;
+          if (uncle && uncle.C) {
+            parent.C = uncle.C = false;
+            grandpa.C = true;
+            after = grandpa;
+          } else {
+            if (after === parent.R) {
+              RedBlackRotateLeft(this, parent);
+              after = parent;
+              parent = after.U;
+            }
+            parent.C = false;
+            grandpa.C = true;
+            RedBlackRotateRight(this, grandpa);
+          }
+        } else {
+          uncle = grandpa.L;
+          if (uncle && uncle.C) {
+            parent.C = uncle.C = false;
+            grandpa.C = true;
+            after = grandpa;
+          } else {
+            if (after === parent.L) {
+              RedBlackRotateRight(this, parent);
+              after = parent;
+              parent = after.U;
+            }
+            parent.C = false;
+            grandpa.C = true;
+            RedBlackRotateLeft(this, grandpa);
+          }
+        }
+        parent = after.U;
+      }
+      this._.C = false;
+    },
+    remove: function (node) {
+      if (node.N) node.N.P = node.P;
+      if (node.P) node.P.N = node.N;
+      node.N = node.P = null;
+      var parent = node.U, sibling, left = node.L, right = node.R, next, red;
+      if (!left) next = right; else if (!right) next = left; else next = RedBlackFirst(right);
+      if (parent) {
+        if (parent.L === node) parent.L = next; else parent.R = next;
+      } else {
+        this._ = next;
+      }
+      if (left && right) {
+        red = next.C;
+        next.C = node.C;
+        next.L = left;
+        left.U = next;
+        if (next !== right) {
+          parent = next.U;
+          next.U = node.U;
+          node = next.R;
+          parent.L = node;
+          next.R = right;
+          right.U = next;
+        } else {
+          next.U = parent;
+          parent = next;
+          node = next.R;
+        }
+      } else {
+        red = node.C;
+        node = next;
+      }
+      if (node) node.U = parent;
+      if (red) return;
+      if (node && node.C) {
+        node.C = false;
+        return;
+      }
+      do {
+        if (node === this._) break;
+        if (node === parent.L) {
+          sibling = parent.R;
+          if (sibling.C) {
+            sibling.C = false;
+            parent.C = true;
+            RedBlackRotateLeft(this, parent);
+            sibling = parent.R;
+          }
+          if (sibling.L && sibling.L.C || sibling.R && sibling.R.C) {
+            if (!sibling.R || !sibling.R.C) {
+              sibling.L.C = false;
+              sibling.C = true;
+              RedBlackRotateRight(this, sibling);
+              sibling = parent.R;
+            }
+            sibling.C = parent.C;
+            parent.C = sibling.R.C = false;
+            RedBlackRotateLeft(this, parent);
+            node = this._;
+            break;
+          }
+        } else {
+          sibling = parent.L;
+          if (sibling.C) {
+            sibling.C = false;
+            parent.C = true;
+            RedBlackRotateRight(this, parent);
+            sibling = parent.L;
+          }
+          if (sibling.L && sibling.L.C || sibling.R && sibling.R.C) {
+            if (!sibling.L || !sibling.L.C) {
+              sibling.R.C = false;
+              sibling.C = true;
+              RedBlackRotateLeft(this, sibling);
+              sibling = parent.L;
+            }
+            sibling.C = parent.C;
+            parent.C = sibling.L.C = false;
+            RedBlackRotateRight(this, parent);
+            node = this._;
+            break;
+          }
+        }
+        sibling.C = true;
+        node = parent;
+        parent = parent.U;
+      } while (!node.C);
+      if (node) node.C = false;
+    }
+  };
+  function RedBlackRotateLeft(tree, node) {
+    var p = node, q = node.R, parent = p.U;
+    if (parent) {
+      if (parent.L === p) parent.L = q; else parent.R = q;
+    } else {
+      tree._ = q;
+    }
+    q.U = parent;
+    p.U = q;
+    p.R = q.L;
+    if (p.R) p.R.U = p;
+    q.L = p;
+  }
+  function RedBlackRotateRight(tree, node) {
+    var p = node, q = node.L, parent = p.U;
+    if (parent) {
+      if (parent.L === p) parent.L = q; else parent.R = q;
+    } else {
+      tree._ = q;
+    }
+    q.U = parent;
+    p.U = q;
+    p.L = q.R;
+    if (p.L) p.L.U = p;
+    q.R = p;
+  }
+  function RedBlackFirst(node) {
+    while (node.L) node = node.L;
+    return node;
+  }
+  function createEdge(left, right, v0, v1) {
+    var edge = [null, null], index = edges.push(edge) - 1;
+    edge.left = left;
+    edge.right = right;
+    if (v0) setEdgeEnd(edge, left, right, v0);
+    if (v1) setEdgeEnd(edge, right, left, v1);
+    cells[left.index].halfedges.push(index);
+    cells[right.index].halfedges.push(index);
+    return edge;
+  }
+  function createBorderEdge(left, v0, v1) {
+    var edge = [v0, v1];
+    edge.left = left;
+    return edge;
+  }
+  function setEdgeEnd(edge, left, right, vertex) {
+    if (!edge[0] && !edge[1]) {
+      edge[0] = vertex;
+      edge.left = left;
+      edge.right = right;
+    } else if (edge.left === right) {
+      edge[1] = vertex;
+    } else {
+      edge[0] = vertex;
+    }
+  }
+  // Liang–Barsky line clipping.
+  function clipEdge(edge, x0, y0, x1, y1) {
+    var a = edge[0], b = edge[1], ax = a[0], ay = a[1], bx = b[0], by = b[1], t0 = 0, t1 = 1, dx = bx - ax, dy = by - ay, r;
+    r = x0 - ax;
+    if (!dx && r > 0) return;
+    r /= dx;
+    if (dx < 0) {
+      if (r < t0) return;
+      if (r < t1) t1 = r;
+    } else if (dx > 0) {
+      if (r > t1) return;
+      if (r > t0) t0 = r;
+    }
+    r = x1 - ax;
+    if (!dx && r < 0) return;
+    r /= dx;
+    if (dx < 0) {
+      if (r > t1) return;
+      if (r > t0) t0 = r;
+    } else if (dx > 0) {
+      if (r < t0) return;
+      if (r < t1) t1 = r;
+    }
+    r = y0 - ay;
+    if (!dy && r > 0) return;
+    r /= dy;
+    if (dy < 0) {
+      if (r < t0) return;
+      if (r < t1) t1 = r;
+    } else if (dy > 0) {
+      if (r > t1) return;
+      if (r > t0) t0 = r;
+    }
+    r = y1 - ay;
+    if (!dy && r < 0) return;
+    r /= dy;
+    if (dy < 0) {
+      if (r > t1) return;
+      if (r > t0) t0 = r;
+    } else if (dy > 0) {
+      if (r < t0) return;
+      if (r < t1) t1 = r;
+    }
+    if (!(t0 > 0) && !(t1 < 1)) return true;
+    // TODO Better check?
+    if (t0 > 0) edge[0] = [ax + t0 * dx, ay + t0 * dy];
+    if (t1 < 1) edge[1] = [ax + t1 * dx, ay + t1 * dy];
+    return true;
+  }
+  function connectEdge(edge, x0, y0, x1, y1) {
+    var v1 = edge[1];
+    if (v1) return true;
+    var v0 = edge[0], left = edge.left, right = edge.right, lx = left[0], ly = left[1], rx = right[0], ry = right[1], fx = (lx + rx) / 2, fy = (ly + ry) / 2, fm, fb;
+    if (ry === ly) {
+      if (fx < x0 || fx >= x1) return;
+      if (lx > rx) {
+        if (!v0) v0 = [fx, y0]; else if (v0[1] >= y1) return;
+        v1 = [fx, y1];
+      } else {
+        if (!v0) v0 = [fx, y1]; else if (v0[1] < y0) return;
+        v1 = [fx, y0];
+      }
+    } else {
+      fm = (lx - rx) / (ry - ly);
+      fb = fy - fm * fx;
+      if (fm < -1 || fm > 1) {
+        if (lx > rx) {
+          if (!v0) v0 = [(y0 - fb) / fm, y0]; else if (v0[1] >= y1) return;
+          v1 = [(y1 - fb) / fm, y1];
+        } else {
+          if (!v0) v0 = [(y1 - fb) / fm, y1]; else if (v0[1] < y0) return;
+          v1 = [(y0 - fb) / fm, y0];
+        }
+      } else {
+        if (ly < ry) {
+          if (!v0) v0 = [x0, fm * x0 + fb]; else if (v0[0] >= x1) return;
+          v1 = [x1, fm * x1 + fb];
+        } else {
+          if (!v0) v0 = [x1, fm * x1 + fb]; else if (v0[0] < x0) return;
+          v1 = [x0, fm * x0 + fb];
+        }
+      }
+    }
+    edge[0] = v0;
+    edge[1] = v1;
+    return true;
+  }
+  function clipEdges(x0, y0, x1, y1) {
+    var i = edges.length, edge;
+    while (i--) {
+      if (!connectEdge(edge = edges[i], x0, y0, x1, y1) || !clipEdge(edge, x0, y0, x1, y1) || !(Math.abs(edge[0][0] - edge[1][0]) > epsilon || Math.abs(edge[0][1] - edge[1][1]) > epsilon)) {
+        delete edges[i];
+      }
+    }
+  }
+  function createCell(site) {
+    return cells[site.index] = {
+      site: site,
+      halfedges: []
+    };
+  }
+  function cellHalfedgeAngle(cell, edge) {
+    var site = cell.site, va = edge.left, vb = edge.right;
+    if (site === vb) (vb = va, va = site);
+    if (vb) return Math.atan2(vb[1] - va[1], vb[0] - va[0]);
+    if (site === va) (va = edge[1], vb = edge[0]); else (va = edge[0], vb = edge[1]);
+    return Math.atan2(va[0] - vb[0], vb[1] - va[1]);
+  }
+  function cellHalfedgeStart(cell, edge) {
+    return edge[+(edge.left !== cell.site)];
+  }
+  function cellHalfedgeEnd(cell, edge) {
+    return edge[+(edge.left === cell.site)];
+  }
+  function sortCellHalfedges() {
+    for (var i = 0, n = cells.length, cell, halfedges, j, m; i < n; ++i) {
+      if ((cell = cells[i]) && (m = (halfedges = cell.halfedges).length)) {
+        var index = new Array(m), array = new Array(m);
+        for (j = 0; j < m; ++j) (index[j] = j, array[j] = cellHalfedgeAngle(cell, edges[halfedges[j]]));
+        index.sort(function (i, j) {
+          return array[j] - array[i];
+        });
+        for (j = 0; j < m; ++j) array[j] = halfedges[index[j]];
+        for (j = 0; j < m; ++j) halfedges[j] = array[j];
+      }
+    }
+  }
+  function clipCells(x0, y0, x1, y1) {
+    var nCells = cells.length, iCell, cell, site, iHalfedge, halfedges, nHalfedges, start, startX, startY, end, endX, endY, cover = true;
+    for (iCell = 0; iCell < nCells; ++iCell) {
+      if (cell = cells[iCell]) {
+        site = cell.site;
+        halfedges = cell.halfedges;
+        iHalfedge = halfedges.length;
+        // Remove any dangling clipped edges.
+        while (iHalfedge--) {
+          if (!edges[halfedges[iHalfedge]]) {
+            halfedges.splice(iHalfedge, 1);
+          }
+        }
+        // Insert any border edges as necessary.
+        (iHalfedge = 0, nHalfedges = halfedges.length);
+        while (iHalfedge < nHalfedges) {
+          (end = cellHalfedgeEnd(cell, edges[halfedges[iHalfedge]]), endX = end[0], endY = end[1]);
+          (start = cellHalfedgeStart(cell, edges[halfedges[++iHalfedge % nHalfedges]]), startX = start[0], startY = start[1]);
+          if (Math.abs(endX - startX) > epsilon || Math.abs(endY - startY) > epsilon) {
+            halfedges.splice(iHalfedge, 0, edges.push(createBorderEdge(site, end, Math.abs(endX - x0) < epsilon && y1 - endY > epsilon ? [x0, Math.abs(startX - x0) < epsilon ? startY : y1] : Math.abs(endY - y1) < epsilon && x1 - endX > epsilon ? [Math.abs(startY - y1) < epsilon ? startX : x1, y1] : Math.abs(endX - x1) < epsilon && endY - y0 > epsilon ? [x1, Math.abs(startX - x1) < epsilon ? startY : y0] : Math.abs(endY - y0) < epsilon && endX - x0 > epsilon ? [Math.abs(startY - y0) < epsilon ? startX : x0, y0] : null)) - 1);
+            ++nHalfedges;
+          }
+        }
+        if (nHalfedges) cover = false;
+      }
+    }
+    // If there weren’t any edges, have the closest site cover the extent.
+    // It doesn’t matter which corner of the extent we measure!
+    if (cover) {
+      var dx, dy, d2, dc = Infinity;
+      for ((iCell = 0, cover = null); iCell < nCells; ++iCell) {
+        if (cell = cells[iCell]) {
+          site = cell.site;
+          dx = site[0] - x0;
+          dy = site[1] - y0;
+          d2 = dx * dx + dy * dy;
+          if (d2 < dc) (dc = d2, cover = cell);
+        }
+      }
+      if (cover) {
+        var v00 = [x0, y0], v01 = [x0, y1], v11 = [x1, y1], v10 = [x1, y0];
+        cover.halfedges.push(edges.push(createBorderEdge(site = cover.site, v00, v01)) - 1, edges.push(createBorderEdge(site, v01, v11)) - 1, edges.push(createBorderEdge(site, v11, v10)) - 1, edges.push(createBorderEdge(site, v10, v00)) - 1);
+      }
+    }
+    // Lastly delete any cells with no edges; these were entirely clipped.
+    for (iCell = 0; iCell < nCells; ++iCell) {
+      if (cell = cells[iCell]) {
+        if (!cell.halfedges.length) {
+          delete cells[iCell];
+        }
+      }
+    }
+  }
+  var circlePool = [];
+  var firstCircle;
+  function Circle() {
+    RedBlackNode(this);
+    this.x = this.y = this.arc = this.site = this.cy = null;
+  }
+  function attachCircle(arc) {
+    var lArc = arc.P, rArc = arc.N;
+    if (!lArc || !rArc) return;
+    var lSite = lArc.site, cSite = arc.site, rSite = rArc.site;
+    if (lSite === rSite) return;
+    var bx = cSite[0], by = cSite[1], ax = lSite[0] - bx, ay = lSite[1] - by, cx = rSite[0] - bx, cy = rSite[1] - by;
+    var d = 2 * (ax * cy - ay * cx);
+    if (d >= -epsilon2) return;
+    var ha = ax * ax + ay * ay, hc = cx * cx + cy * cy, x = (cy * ha - ay * hc) / d, y = (ax * hc - cx * ha) / d;
+    var circle = circlePool.pop() || new Circle();
+    circle.arc = arc;
+    circle.site = cSite;
+    circle.x = x + bx;
+    circle.y = (circle.cy = y + by) + Math.sqrt(x * x + y * y);
+    // y bottom
+    arc.circle = circle;
+    var before = null, node = circles._;
+    while (node) {
+      if (circle.y < node.y || circle.y === node.y && circle.x <= node.x) {
+        if (node.L) node = node.L; else {
+          before = node.P;
+          break;
+        }
+      } else {
+        if (node.R) node = node.R; else {
+          before = node;
+          break;
+        }
+      }
+    }
+    circles.insert(before, circle);
+    if (!before) firstCircle = circle;
+  }
+  function detachCircle(arc) {
+    var circle = arc.circle;
+    if (circle) {
+      if (!circle.P) firstCircle = circle.N;
+      circles.remove(circle);
+      circlePool.push(circle);
+      RedBlackNode(circle);
+      arc.circle = null;
+    }
+  }
+  var beachPool = [];
+  function Beach() {
+    RedBlackNode(this);
+    this.edge = this.site = this.circle = null;
+  }
+  function createBeach(site) {
+    var beach = beachPool.pop() || new Beach();
+    beach.site = site;
+    return beach;
+  }
+  function detachBeach(beach) {
+    detachCircle(beach);
+    beaches.remove(beach);
+    beachPool.push(beach);
+    RedBlackNode(beach);
+  }
+  function removeBeach(beach) {
+    var circle = beach.circle, x = circle.x, y = circle.cy, vertex = [x, y], previous = beach.P, next = beach.N, disappearing = [beach];
+    detachBeach(beach);
+    var lArc = previous;
+    while (lArc.circle && Math.abs(x - lArc.circle.x) < epsilon && Math.abs(y - lArc.circle.cy) < epsilon) {
+      previous = lArc.P;
+      disappearing.unshift(lArc);
+      detachBeach(lArc);
+      lArc = previous;
+    }
+    disappearing.unshift(lArc);
+    detachCircle(lArc);
+    var rArc = next;
+    while (rArc.circle && Math.abs(x - rArc.circle.x) < epsilon && Math.abs(y - rArc.circle.cy) < epsilon) {
+      next = rArc.N;
+      disappearing.push(rArc);
+      detachBeach(rArc);
+      rArc = next;
+    }
+    disappearing.push(rArc);
+    detachCircle(rArc);
+    var nArcs = disappearing.length, iArc;
+    for (iArc = 1; iArc < nArcs; ++iArc) {
+      rArc = disappearing[iArc];
+      lArc = disappearing[iArc - 1];
+      setEdgeEnd(rArc.edge, lArc.site, rArc.site, vertex);
+    }
+    lArc = disappearing[0];
+    rArc = disappearing[nArcs - 1];
+    rArc.edge = createEdge(lArc.site, rArc.site, null, vertex);
+    attachCircle(lArc);
+    attachCircle(rArc);
+  }
+  function addBeach(site) {
+    var x = site[0], directrix = site[1], lArc, rArc, dxl, dxr, node = beaches._;
+    while (node) {
+      dxl = leftBreakPoint(node, directrix) - x;
+      if (dxl > epsilon) node = node.L; else {
+        dxr = x - rightBreakPoint(node, directrix);
+        if (dxr > epsilon) {
+          if (!node.R) {
+            lArc = node;
+            break;
+          }
+          node = node.R;
+        } else {
+          if (dxl > -epsilon) {
+            lArc = node.P;
+            rArc = node;
+          } else if (dxr > -epsilon) {
+            lArc = node;
+            rArc = node.N;
+          } else {
+            lArc = rArc = node;
+          }
+          break;
+        }
+      }
+    }
+    createCell(site);
+    var newArc = createBeach(site);
+    beaches.insert(lArc, newArc);
+    if (!lArc && !rArc) return;
+    if (lArc === rArc) {
+      detachCircle(lArc);
+      rArc = createBeach(lArc.site);
+      beaches.insert(newArc, rArc);
+      newArc.edge = rArc.edge = createEdge(lArc.site, newArc.site);
+      attachCircle(lArc);
+      attachCircle(rArc);
+      return;
+    }
+    if (!rArc) {
+      // && lArc
+      newArc.edge = createEdge(lArc.site, newArc.site);
+      return;
+    }
+    // else lArc !== rArc
+    detachCircle(lArc);
+    detachCircle(rArc);
+    var lSite = lArc.site, ax = lSite[0], ay = lSite[1], bx = site[0] - ax, by = site[1] - ay, rSite = rArc.site, cx = rSite[0] - ax, cy = rSite[1] - ay, d = 2 * (bx * cy - by * cx), hb = bx * bx + by * by, hc = cx * cx + cy * cy, vertex = [(cy * hb - by * hc) / d + ax, (bx * hc - cx * hb) / d + ay];
+    setEdgeEnd(rArc.edge, lSite, rSite, vertex);
+    newArc.edge = createEdge(lSite, site, null, vertex);
+    rArc.edge = createEdge(site, rSite, null, vertex);
+    attachCircle(lArc);
+    attachCircle(rArc);
+  }
+  function leftBreakPoint(arc, directrix) {
+    var site = arc.site, rfocx = site[0], rfocy = site[1], pby2 = rfocy - directrix;
+    if (!pby2) return rfocx;
+    var lArc = arc.P;
+    if (!lArc) return -Infinity;
+    site = lArc.site;
+    var lfocx = site[0], lfocy = site[1], plby2 = lfocy - directrix;
+    if (!plby2) return lfocx;
+    var hl = lfocx - rfocx, aby2 = 1 / pby2 - 1 / plby2, b = hl / plby2;
+    if (aby2) return (-b + Math.sqrt(b * b - 2 * aby2 * (hl * hl / (-2 * plby2) - lfocy + plby2 / 2 + rfocy - pby2 / 2))) / aby2 + rfocx;
+    return (rfocx + lfocx) / 2;
+  }
+  function rightBreakPoint(arc, directrix) {
+    var rArc = arc.N;
+    if (rArc) return leftBreakPoint(rArc, directrix);
+    var site = arc.site;
+    return site[1] === directrix ? site[0] : Infinity;
+  }
+  var epsilon = 1e-6;
+  var epsilon2 = 1e-12;
+  var beaches;
+  var cells;
+  var circles;
+  var edges;
+  function triangleArea(a, b, c) {
+    return (a[0] - c[0]) * (b[1] - a[1]) - (a[0] - b[0]) * (c[1] - a[1]);
+  }
+  function lexicographic(a, b) {
+    return b[1] - a[1] || b[0] - a[0];
+  }
+  function Diagram(sites, extent) {
+    var site = sites.sort(lexicographic).pop(), x, y, circle;
+    edges = [];
+    cells = new Array(sites.length);
+    beaches = new RedBlackTree();
+    circles = new RedBlackTree();
+    while (true) {
+      circle = firstCircle;
+      if (site && (!circle || site[1] < circle.y || site[1] === circle.y && site[0] < circle.x)) {
+        if (site[0] !== x || site[1] !== y) {
+          addBeach(site);
+          (x = site[0], y = site[1]);
+        }
+        site = sites.pop();
+      } else if (circle) {
+        removeBeach(circle.arc);
+      } else {
+        break;
+      }
+    }
+    sortCellHalfedges();
+    if (extent) {
+      var x0 = +extent[0][0], y0 = +extent[0][1], x1 = +extent[1][0], y1 = +extent[1][1];
+      clipEdges(x0, y0, x1, y1);
+      clipCells(x0, y0, x1, y1);
+    }
+    this.edges = edges;
+    this.cells = cells;
+    beaches = circles = edges = cells = null;
+  }
+  Diagram.prototype = {
+    constructor: Diagram,
+    polygons: function () {
+      var edges = this.edges;
+      return this.cells.map(function (cell) {
+        var polygon = cell.halfedges.map(function (i) {
+          return cellHalfedgeStart(cell, edges[i]);
+        });
+        polygon.data = cell.site.data;
+        return polygon;
+      });
+    },
+    triangles: function () {
+      var triangles = [], edges = this.edges;
+      this.cells.forEach(function (cell, i) {
+        if (!(m = (halfedges = cell.halfedges).length)) return;
+        var site = cell.site, halfedges, j = -1, m, s0, e1 = edges[halfedges[m - 1]], s1 = e1.left === site ? e1.right : e1.left;
+        while (++j < m) {
+          s0 = s1;
+          e1 = edges[halfedges[j]];
+          s1 = e1.left === site ? e1.right : e1.left;
+          if (s0 && s1 && i < s0.index && i < s1.index && triangleArea(site, s0, s1) < 0) {
+            triangles.push([site.data, s0.data, s1.data]);
+          }
+        }
+      });
+      return triangles;
+    },
+    links: function () {
+      return this.edges.filter(function (edge) {
+        return edge.right;
+      }).map(function (edge) {
+        return {
+          source: edge.left.data,
+          target: edge.right.data
+        };
+      });
+    },
+    find: function (x, y, radius) {
+      var that = this, i0, i1 = that._found || 0, n = that.cells.length, cell;
+      // Use the previously-found cell, or start with an arbitrary one.
+      while (!(cell = that.cells[i1])) if (++i1 >= n) return null;
+      var dx = x - cell.site[0], dy = y - cell.site[1], d2 = dx * dx + dy * dy;
+      // Traverse the half-edges to find a closer cell, if any.
+      do {
+        (cell = that.cells[i0 = i1], i1 = null);
+        cell.halfedges.forEach(function (e) {
+          var edge = that.edges[e], v = edge.left;
+          if ((v === cell.site || !v) && !(v = edge.right)) return;
+          var vx = x - v[0], vy = y - v[1], v2 = vx * vx + vy * vy;
+          if (v2 < d2) (d2 = v2, i1 = v.index);
+        });
+      } while (i1 !== null);
+      that._found = i0;
+      return radius == null || d2 <= radius * radius ? cell.site : null;
+    }
+  };
+  function voronoi() {
+    var x$$1 = x, y$$1 = y, extent = null;
+    function voronoi(data) {
+      return new Diagram(data.map(function (d, i) {
+        var s = [Math.round(x$$1(d, i, data) / epsilon) * epsilon, Math.round(y$$1(d, i, data) / epsilon) * epsilon];
+        s.index = i;
+        s.data = d;
+        return s;
+      }), extent);
+    }
+    voronoi.polygons = function (data) {
+      return voronoi(data).polygons();
+    };
+    voronoi.links = function (data) {
+      return voronoi(data).links();
+    };
+    voronoi.triangles = function (data) {
+      return voronoi(data).triangles();
+    };
+    voronoi.x = function (_) {
+      return arguments.length ? (x$$1 = typeof _ === "function" ? _ : constant(+_), voronoi) : x$$1;
+    };
+    voronoi.y = function (_) {
+      return arguments.length ? (y$$1 = typeof _ === "function" ? _ : constant(+_), voronoi) : y$$1;
+    };
+    voronoi.extent = function (_) {
+      return arguments.length ? (extent = _ == null ? null : [[+_[0][0], +_[0][1]], [+_[1][0], +_[1][1]]], voronoi) : extent && [[extent[0][0], extent[0][1]], [extent[1][0], extent[1][1]]];
+    };
+    voronoi.size = function (_) {
+      return arguments.length ? (extent = _ == null ? null : [[0, 0], [+_[0], +_[1]]], voronoi) : extent && [extent[1][0] - extent[0][0], extent[1][1] - extent[0][1]];
+    };
+    return voronoi;
+  }
+  exports.voronoi = voronoi;
+  Object.defineProperty(exports, '__esModule', {
+    value: true
+  });
+});
+
+},{}]},["2FQzm","5XPnV"], "5XPnV", "parcelRequire6f84")
+
+//# sourceMappingURL=index.HASH_REF_c75227167347e57df55b258c72166a09.js.map
